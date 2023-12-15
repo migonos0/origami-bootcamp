@@ -26,7 +26,7 @@ public class Proyecto {
     @Column
     private String arrastre;
 
-    @Column
+    @Column(name = "denominacion")
     private String donominacion;
 
     @Column(name = "detalle_arrastre")
