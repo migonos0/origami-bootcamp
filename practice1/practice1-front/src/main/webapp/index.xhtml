@@ -1,17 +1,87 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:p="http://primefaces.org/ui"
->
-  <h:head>
-    <title>FromXhtml</title>
-  </h:head>
-  <h:body>
-      <h:outputText value="Helllo World!"></h:outputText>
-      <p:inputText/>
-      
-  </h:body>
-</html>
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Esquema de Proyectos</ui:define>
+
+    <ui:define name="content">
+        <h1>Esquema de proyectos</h1>
+
+        <h2>Datos informativos</h2>
+        <div class="flex flex-column gap-3">
+            <div class="flex flex-row">
+                <div class="flex align-items-center gap-2 flex-grow-1" >
+                    <h:outputText value="Proceso:"/>
+                    <p:selectOneMenu/>
+                </div>
+                <div class="flex align-items-center gap-2 flex-grow-1" >
+                    <h:outputText value="Área:"/>
+                    <p:selectOneMenu/>
+                </div>
+            </div>
+
+            <div class="flex flex-row justify-content-between">
+                <div class="flex align-items-center gap-2">
+                    <h:outputText value="Tipo:"/>
+                    <p:selectBooleanButton/>
+                </div>
+                <div class="flex align-items-center gap-2">
+                    <h:outputText value="Recurrente:"/>
+                    <p:selectBooleanButton/>
+
+                </div>
+                <div class="flex align-items-center gap-2">
+                    <h:outputText value="Arrastre:"/>
+                    <p:selectBooleanButton/>
+                </div>
+            </div>
+
+            <div class="flex flex-row align-items-center gap-2">
+                <h:outputText value="Denominación del proyecto:"/>
+                <p:inputText styleClass="flex-grow-1"/>                
+            </div>
+
+            <div class="flex flex-row align-items-center gap-2">
+                <h:outputText value="Detalle en caso de arrastre:"/>
+                <p:inputText styleClass="flex-grow-1"/>                
+            </div>
+        </div>
+
+        <h2>Datos generales</h2>
+        <div class="flex flex-column gap-3">
+            <div class="flex flex-row align-items-center gap-2">
+                <h:outputText value="Responsable:"/>
+                <p:inputText styleClass="flex-grow-1"/>                
+            </div>
+            
+            <div class="flex flex-row align-items-center gap-2">
+                <h:outputText value="Objetivo general:"/>
+                <p:inputText styleClass="flex-grow-1"/>                
+            </div>
+            
+             <div class="flex flex-row align-items-center gap-2">
+                <h:outputText value="Descripción breve:"/>
+                <p:inputTextarea styleClass="flex-grow-1"/>                
+            </div>
+
+            <div class="flex flex-row justify-content-between">
+                <div class="flex align-items-center gap-2">
+                    <h:outputText value="Costo estimado:"/>
+                    <p:inputNumber/>
+                </div>
+                <div class="flex align-items-center gap-2">
+                    <h:outputText value="Fecha inicio:"/>
+                    <p:calendar/>
+
+                </div>
+                <div class="flex align-items-center gap-2">
+                    <h:outputText value="Fecha fin:"/>
+                    <p:calendar/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
