@@ -8,80 +8,94 @@
     <ui:define name="title">Esquema de Proyectos</ui:define>
 
     <ui:define name="content">
-        <h1>Esquema de proyectos</h1>
+        <h:form>
+            <h1>Esquema de proyectos</h1>
 
-        <h2>Datos informativos</h2>
-        <div class="flex flex-column gap-3">
-            <div class="flex flex-row">
-                <div class="flex align-items-center gap-2 flex-grow-1" >
-                    <h:outputText value="Proceso:"/>
-                    <p:selectOneMenu/>
+            <h2>Datos informativos</h2>
+            <div class="flex flex-column gap-3">
+                <div class="flex flex-row gap-3">
+                    <div class="flex flex-column gap-2 flex-grow-1" >
+                        <h:outputText value="Proceso:"/>
+                        <p:selectOneMenu value="#{createProjectBean.proyecto.proceso}" converter="#{procesoConverter}">
+                            <f:selectItem itemLabel="Seleccione un proceso" />
+                            <f:selectItems value="#{createProjectBean.procesos}" var="proceso"
+                                           itemLabel="#{proceso.descripcion}" itemValue="#{proceso}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="flex flex-column gap-2 flex-grow-1" >
+                        <h:outputText value="Área:"/>
+                        <p:selectOneMenu value="#{createProjectBean.proyecto.area}" converter="#{areaConverter}">
+                            <f:selectItem itemLabel="Seleccione un area" />
+                            <f:selectItems value="#{createProjectBean.areas}" var="area"
+                                           itemLabel="#{area.descripcion}" itemValue="#{area}"></f:selectItems>
+                        </p:selectOneMenu>
+                    </div>
                 </div>
-                <div class="flex align-items-center gap-2 flex-grow-1" >
-                    <h:outputText value="Área:"/>
-                    <p:selectOneMenu/>
+
+                <div class="flex flex-row gap-3">
+                    <div class="flex flex-column gap-2 flex-grow-1">
+                        <h:outputText value="Tipo:"/>
+                        <p:inputText value="#{createProjectBean.proyecto.tipo}"/>
+                    </div>
+                    <div class="flex flex-column gap-2 flex-grow-1">
+                        <h:outputText value="Recurrente:"/>
+                        <p:selectBooleanButton value="#{createProjectBean.proyecto.recurrente}"/>
+
+                    </div>
+                    <div class="flex flex-column gap-2 flex-grow-1">
+                        <h:outputText value="Arrastre:"/>
+                        <p:selectBooleanButton value="#{createProjectBean.proyecto.arrastre}"/>
+                    </div>
                 </div>
-            </div>
 
-            <div class="flex flex-row justify-content-between">
-                <div class="flex align-items-center gap-2">
-                    <h:outputText value="Tipo:"/>
-                    <p:selectBooleanButton/>
+                <div class="flex flex-column gap-2">
+                    <h:outputText value="Denominación del proyecto:"/>
+                    <p:inputText styleClass="flex-grow-1" value="#{createProjectBean.proyecto.donominacion}"/>                
                 </div>
-                <div class="flex align-items-center gap-2">
-                    <h:outputText value="Recurrente:"/>
-                    <p:selectBooleanButton/>
 
-                </div>
-                <div class="flex align-items-center gap-2">
-                    <h:outputText value="Arrastre:"/>
-                    <p:selectBooleanButton/>
-                </div>
-            </div>
-
-            <div class="flex flex-row align-items-center gap-2">
-                <h:outputText value="Denominación del proyecto:"/>
-                <p:inputText styleClass="flex-grow-1"/>                
-            </div>
-
-            <div class="flex flex-row align-items-center gap-2">
-                <h:outputText value="Detalle en caso de arrastre:"/>
-                <p:inputText styleClass="flex-grow-1"/>                
-            </div>
-        </div>
-
-        <h2>Datos generales</h2>
-        <div class="flex flex-column gap-3">
-            <div class="flex flex-row align-items-center gap-2">
-                <h:outputText value="Responsable:"/>
-                <p:inputText styleClass="flex-grow-1"/>                
-            </div>
-            
-            <div class="flex flex-row align-items-center gap-2">
-                <h:outputText value="Objetivo general:"/>
-                <p:inputText styleClass="flex-grow-1"/>                
-            </div>
-            
-             <div class="flex flex-row align-items-center gap-2">
-                <h:outputText value="Descripción breve:"/>
-                <p:inputTextarea styleClass="flex-grow-1"/>                
-            </div>
-
-            <div class="flex flex-row justify-content-between">
-                <div class="flex align-items-center gap-2">
-                    <h:outputText value="Costo estimado:"/>
-                    <p:inputNumber/>
-                </div>
-                <div class="flex align-items-center gap-2">
-                    <h:outputText value="Fecha inicio:"/>
-                    <p:calendar/>
-
-                </div>
-                <div class="flex align-items-center gap-2">
-                    <h:outputText value="Fecha fin:"/>
-                    <p:calendar/>
+                <div class="flex flex-column gap-2">
+                    <h:outputText value="Detalle en caso de arrastre:"/>
+                    <p:inputText styleClass="flex-grow-1" value="#{createProjectBean.proyecto.detalleArrastre}"/>                
                 </div>
             </div>
-        </div>
+
+            <h2>Datos generales</h2>
+            <div class="flex flex-column gap-3">
+                <div class="flex flex-column gap-2">
+                    <h:outputText value="Responsable:"/>
+                    <p:selectOneMenu value="#{createProjectBean.proyecto.responsable}" converter="#{personaConverter}">
+                        <f:selectItem itemLabel="Seleccione un responsable" />
+                        <f:selectItems value="#{createProjectBean.personas}" var="persona"
+                                       itemLabel="#{persona.nombre} #{persona.apellido}" itemValue="#{persona}"></f:selectItems>
+                    </p:selectOneMenu>              
+                </div>
+
+                <div class="flex flex-column gap-2">
+                    <h:outputText value="Objetivo general:"/>
+                    <p:inputText styleClass="flex-grow-1" value="#{createProjectBean.proyecto.objetivo}"/>                
+                </div>
+
+                <div class="flex flex-column gap-2">
+                    <h:outputText value="Descripción breve:"/>
+                    <p:inputTextarea styleClass="flex-grow-1" value="#{createProjectBean.proyecto.descripcionBreve}"/>                
+                </div>
+
+                <div class="flex flex-row gap-3">
+                    <div class="flex flex-column gap-2 flex-grow-1">
+                        <h:outputText value="Costo estimado:"/>
+                        <p:inputNumber styleClass="flex-grow-1" value="#{createProjectBean.proyecto.costoProyecto}"/>
+                    </div>
+                    <div class="flex flex-column gap-2 flex-grow-1">
+                        <h:outputText value="Fecha inicio:"/>
+                        <p:calendar styleClass="flex-grow-1" value="#{createProjectBean.proyecto.fechaInicio}"/>
+                    </div>
+                    <div class="flex flex-column gap-2 flex-grow-1">
+                        <h:outputText value="Fecha fin:"/>
+                        <p:calendar styleClass="flex-grow-1" value="#{createProjectBean.proyecto.fechaFin}"/>
+                    </div>
+                </div>
+            </div>
+            <p:commandButton value="Guardar" icon="pi pi-save" actionListener="#{createProjectBean.createProjectActionListener()}"/>
+        </h:form>
     </ui:define>
 </ui:composition>
