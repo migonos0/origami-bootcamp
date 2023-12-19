@@ -9,7 +9,7 @@ public class ProyectoDto {
 
     private boolean recurrente;
 
-    private String arrastre;
+    private boolean arrastre;
 
     private String donominacion;
 
@@ -65,11 +65,11 @@ public class ProyectoDto {
         this.recurrente = recurrente;
     }
 
-    public String getArrastre() {
+    public boolean getArrastre() {
         return arrastre;
     }
 
-    public void setArrastre(String arrastre) {
+    public void setArrastre(boolean arrastre) {
         this.arrastre = arrastre;
     }
 
