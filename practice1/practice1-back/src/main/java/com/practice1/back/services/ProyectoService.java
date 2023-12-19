@@ -1,6 +1,7 @@
 package com.practice1.back.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,16 @@ public class ProyectoService {
         List<Proyecto> proyectos = new ArrayList<>();
         proyectoRepository.findAll().forEach(proyectos::add);
         return proyectoMapper.toDto(proyectos);
+    }
+
+    public ProyectoDto createProyecto(ProyectoDto proyectoDto) {
+        Proyecto proyecto = proyectoMapper.toEntity(proyectoDto);
+        proyecto.setFechaCreacion(new Date());
+        proyecto.setFechaModificacion(new Date());
+        proyecto.setCreadoPor("Spring");
+        proyecto.setModificadoPor("Spring");
+        proyecto.setEstado("A");
+        proyecto = proyectoRepository.save(proyecto);
+        return proyectoMapper.toDto(proyecto);
     }
 }
