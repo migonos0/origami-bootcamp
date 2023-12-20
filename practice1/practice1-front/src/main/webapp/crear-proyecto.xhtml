@@ -19,7 +19,7 @@
 
                 <h3>Datos informativos</h3>
                 <div class="flex flex-column gap-3">
-                    <div class="flex flex-row gap-3">
+                    <div class="flex flex-row gap-3 flex-wrap">
                         <div class="flex flex-column gap-2 flex-grow-1" >
                             <h:outputText value="Proceso:"/>
                             <p:selectOneMenu value="#{createProjectController.createableProject.proceso}" 
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-row gap-3">
+                    <div class="flex flex-row gap-3 flex-wrap">
                         <div class="flex flex-column gap-2 flex-grow-1">
                             <h:outputText value="Tipo:"/>
                             <p:inputText required="true" requiredMessage="Por favor indique un tipo." value="#{createProjectController.createableProject.tipo}"/>
@@ -90,7 +90,7 @@
                                          value="#{createProjectController.createableProject.descripcionBreve}"/>                
                     </div>
 
-                    <div class="flex flex-row gap-3">
+                    <div class="flex flex-row gap-3 flex-flow flex-wrap">
                         <div class="flex flex-column gap-2 flex-grow-1">
                             <h:outputText value="Costo estimado:"/>
                             <p:inputNumber required="true" requiredMessage="Por favor indique un costo estimado." 
