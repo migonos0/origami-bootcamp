@@ -1,30 +1,30 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB40/SingletonEjbClass.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.practice1.front.services;
 
-import com.practice1.front.converters.config.Constants;
-import jakarta.ejb.Singleton;
-import jakarta.ejb.LocalBean;
-import java.util.List;
+import com.practice1.front.interfaces.AppServices;
 import com.practice1.front.models.Area;
-import com.practice1.front.services.interfaces.AppServices;
+import com.practice1.front.constants.ResourceURLs;
+import jakarta.ejb.Singleton;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.util.List;
 
 /**
  *
  * @author miguel
  */
 @Singleton
-@LocalBean
+@ApplicationScoped
 public class AreaService {
-    
+
     @Inject
     private AppServices appServices;
 
     public List<Area> findAllAreas() {
-
-        return appServices.methodListGET(Constants.APP_URL + "area", Area[].class);
+        System.out.println(ResourceURLs.APP_URL + ResourceURLs.AREA);
+        return appServices.methodListGET(ResourceURLs.APP_URL + ResourceURLs.AREA, Area[].class);
     }
 }

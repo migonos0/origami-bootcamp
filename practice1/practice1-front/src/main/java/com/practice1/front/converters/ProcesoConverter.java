@@ -4,10 +4,10 @@
  */
 package com.practice1.front.converters;
 
+import com.practice1.front.managedBeans.ProcesoMB;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Named;
 import com.practice1.front.models.Proceso;
-import com.practice1.front.models.managedbeans.CreateProjectBean;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
@@ -24,13 +24,13 @@ import jakarta.inject.Inject;
 public class ProcesoConverter implements Converter<Proceso> {
 
     @Inject
-    private CreateProjectBean createProjectBean;
+    private ProcesoMB procesoMB;
 
     @Override
     public Proceso getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && value.trim().length() > 0 && createProjectBean.getProcesos() != null) {
+        if (value != null && value.trim().length() > 0 && procesoMB.getProcesos() != null) {
             try {
-                Proceso foundProceso = createProjectBean.getProcesos().stream().filter(proceso -> value.equals(proceso.getId().toString())).findAny().orElse(null);
+                Proceso foundProceso = procesoMB.getProcesos().stream().filter(proceso -> value.equals(proceso.getId().toString())).findAny().orElse(null);
                 return foundProceso;
             } catch (Exception e) {
                 return null;

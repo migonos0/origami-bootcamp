@@ -4,10 +4,10 @@
  */
 package com.practice1.front.converters;
 
+import com.practice1.front.managedBeans.PersonaMB;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Named;
 import com.practice1.front.models.Persona;
-import com.practice1.front.models.managedbeans.CreateProjectBean;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
@@ -24,13 +24,13 @@ import jakarta.inject.Inject;
 public class PersonaConverter implements Converter<Persona> {
 
     @Inject
-    private CreateProjectBean createProjectBean;
+    private PersonaMB personaMB;
 
     @Override
     public Persona getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && value.trim().length() > 0 && createProjectBean.getPersonas() != null) {
+        if (value != null && value.trim().length() > 0 && personaMB.getPersonas() != null) {
             try {
-                Persona foundPersona = createProjectBean.getPersonas().stream().filter(persona -> value.equals(persona.getId().toString())).findAny().orElse(null);
+                Persona foundPersona = personaMB.getPersonas().stream().filter(persona -> value.equals(persona.getId().toString())).findAny().orElse(null);
                 return foundPersona;
             } catch (Exception e) {
                 return null;

@@ -30,7 +30,7 @@ public class Proyecto {
     private boolean arrastre;
 
     @Column(name = "denominacion")
-    private String donominacion;
+    private String denominacion;
 
     @Column(name = "detalle_arrastre")
     private String detalleArrastre;
@@ -109,12 +109,12 @@ public class Proyecto {
         this.arrastre = arrastre;
     }
 
-    public String getDonominacion() {
-        return donominacion;
+    public String getDenominacion() {
+        return denominacion;
     }
 
-    public void setDonominacion(String donominacion) {
-        this.donominacion = donominacion;
+    public void setDenominacion(String donominacion) {
+        this.denominacion = donominacion;
     }
 
     public String getDetalleArrastre() {

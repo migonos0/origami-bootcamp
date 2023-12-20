@@ -4,10 +4,10 @@
  */
 package com.practice1.front.converters;
 
+import com.practice1.front.managedBeans.AreaMB;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Named;
 import com.practice1.front.models.Area;
-import com.practice1.front.models.managedbeans.CreateProjectBean;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
@@ -24,13 +24,13 @@ import jakarta.inject.Inject;
 public class AreaConverter implements Converter<Area> {
 
     @Inject
-    private CreateProjectBean createProjectBean;
+    private AreaMB AreaMB;
 
     @Override
     public Area getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && value.trim().length() > 0 && createProjectBean.getAreas() != null) {
+        if (value != null && value.trim().length() > 0 && AreaMB.getAreas() != null) {
             try {
-                Area foundArea = createProjectBean.getAreas().stream().filter(area -> value.equals(area.getId().toString())).findAny().orElse(null);
+                Area foundArea = AreaMB.getAreas().stream().filter(area -> value.equals(area.getId().toString())).findAny().orElse(null);
                 return foundArea;
             } catch (Exception e) {
                 return null;

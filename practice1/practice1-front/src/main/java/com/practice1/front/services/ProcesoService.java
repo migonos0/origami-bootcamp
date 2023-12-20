@@ -4,12 +4,12 @@
  */
 package com.practice1.front.services;
 
-import com.practice1.front.converters.config.Constants;
 import jakarta.ejb.Singleton;
-import jakarta.ejb.LocalBean;
 import java.util.List;
 import com.practice1.front.models.Proceso;
-import com.practice1.front.services.interfaces.AppServices;
+import com.practice1.front.constants.ResourceURLs;
+import com.practice1.front.interfaces.AppServices;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
@@ -17,13 +17,13 @@ import jakarta.inject.Inject;
  * @author miguel
  */
 @Singleton
-@LocalBean
+@ApplicationScoped
 public class ProcesoService {
 
     @Inject
     private AppServices appServices;
 
     public List<Proceso> findAllProcesos() {
-        return appServices.methodListGET(Constants.APP_URL + "proceso", Proceso[].class);
+        return appServices.methodListGET(ResourceURLs.APP_URL + ResourceURLs.PROCESO, Proceso[].class);
     }
 }

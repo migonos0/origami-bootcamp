@@ -1,0 +1,117 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">Creación de Proyecto</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <p:card>
+                <f:facet name="title">
+                    Esquema de Proyectos
+                </f:facet>
+                <f:facet name="subtitle">
+                    Planificación Origami 2024
+                </f:facet>
+
+                <h3>Datos informativos</h3>
+                <div class="flex flex-column gap-3">
+                    <div class="flex flex-row gap-3">
+                        <div class="flex flex-column gap-2 flex-grow-1" >
+                            <h:outputText value="Proceso:"/>
+                            <p:selectOneMenu value="#{createProjectController.createableProject.proceso}" 
+                                             converter="#{procesoConverter}">
+                                <f:selectItem itemLabel="Seleccione un proceso" />
+                                <f:selectItems value="#{procesoMB.procesos}" var="proceso"
+                                               itemLabel="#{proceso.descripcion}" itemValue="#{proceso}"></f:selectItems>
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="flex flex-column gap-2 flex-grow-1" >
+                            <h:outputText value="Área:"/>
+                            <p:selectOneMenu value="#{createProjectController.createableProject.area}" converter="#{areaConverter}">
+                                <f:selectItem itemLabel="Seleccione un area" />
+                                <f:selectItems value="#{areaMB.areas}" var="area"
+                                               itemLabel="#{area.descripcion}" itemValue="#{area}"></f:selectItems>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-row gap-3">
+                        <div class="flex flex-column gap-2 flex-grow-1">
+                            <h:outputText value="Tipo:"/>
+                            <p:inputText required="true" requiredMessage="Por favor indique un tipo." value="#{createProjectController.createableProject.tipo}"/>
+                        </div>
+                        <div class="flex flex-column gap-2 flex-grow-1">
+                            <h:outputText value="Recurrente:"/>
+                            <p:selectBooleanButton required="true" requiredMessage="Por favor indique si es requerido." value="#{createProjectController.createableProject.recurrente}"/>
+
+                        </div>
+                        <div class="flex flex-column gap-2 flex-grow-1">
+                            <h:outputText value="Arrastre:"/>
+                            <p:selectBooleanButton required="true" requiredMessage="Por favor indique si es arrastre." value="#{createProjectController.createableProject.arrastre}"/>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-column gap-2">
+                        <h:outputText value="Denominación del proyecto:"/>
+                        <p:inputText required="true" requiredMessage="Por favor indique una denominación." styleClass="flex-grow-1" value="#{createProjectController.createableProject.denominacion}"/>                
+                    </div>
+
+                    <div class="flex flex-column gap-2">
+                        <h:outputText value="Detalle en caso de arrastre:"/>
+                        <p:inputText required="true" requiredMessage="Por favor indique un detalle en caso de arrastre." styleClass="flex-grow-1" value="#{createProjectController.createableProject.detalleArrastre}"/>                
+                    </div>
+                </div>
+
+                <h3>Datos generales</h3>
+                <div class="flex flex-column gap-3">
+                    <div class="flex flex-column gap-2">
+                        <h:outputText value="Responsable:"/>
+                        <p:selectOneMenu value="#{createProjectController.createableProject.responsable}" converter="#{personaConverter}">
+                            <f:selectItem itemLabel="Seleccione un responsable" />
+                            <f:selectItems value="#{personaMB.personas}" var="persona"
+                                           itemLabel="#{persona.nombre} #{persona.apellido}" itemValue="#{persona}"></f:selectItems>
+                        </p:selectOneMenu>              
+                    </div>
+
+                    <div class="flex flex-column gap-2">
+                        <h:outputText value="Objetivo general:"/>
+                        <p:inputText required="true" requiredMessage="Por favor indique un objetivo." 
+                                     styleClass="flex-grow-1" value="#{createProjectController.createableProject.objetivo}"/>                
+                    </div>
+
+                    <div class="flex flex-column gap-2">
+                        <h:outputText value="Descripción breve:"/>
+                        <p:inputTextarea styleClass="flex-grow-1" required="true" requiredMessage="Por favor indique una descripción."
+                                         value="#{createProjectController.createableProject.descripcionBreve}"/>                
+                    </div>
+
+                    <div class="flex flex-row gap-3">
+                        <div class="flex flex-column gap-2 flex-grow-1">
+                            <h:outputText value="Costo estimado:"/>
+                            <p:inputNumber required="true" requiredMessage="Por favor indique un costo estimado." 
+                                           styleClass="flex-grow-1" value="#{createProjectController.createableProject.costoProyecto}"/>
+                        </div>
+                        <div class="flex flex-column gap-2 flex-grow-1">
+                            <h:outputText value="Fecha inicio:"/>
+                            <p:calendar required="true" requiredMessage="Por favor indique una fecha de inicio." 
+                                        styleClass="flex-grow-1" value="#{createProjectController.createableProject.fechaInicio}"/>
+                        </div>
+                        <div class="flex flex-column gap-2 flex-grow-1">
+                            <h:outputText value="Fecha fin:"/>
+                            <p:calendar required="true" requiredMessage="Por favor indique una fecha de finalización." 
+                                        styleClass="flex-grow-1" value="#{createProjectController.createableProject.fechaFin}"/>
+                        </div>
+                    </div>
+                </div>
+                <f:facet name="footer">
+                    <p:commandButton update="@form" icon="pi pi-save" value="Guardar" actionListener="#{createProjectController.createProjectActionListener()}"/>
+                </f:facet>
+            </p:card>
+        </h:form>
+    </ui:define>
+</ui:composition>

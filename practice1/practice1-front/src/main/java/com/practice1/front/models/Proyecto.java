@@ -11,7 +11,7 @@ public class Proyecto {
 
     private boolean arrastre;
 
-    private String donominacion;
+    private String denominacion;
 
     private String detalleArrastre;
 
@@ -73,12 +73,12 @@ public class Proyecto {
         this.arrastre = arrastre;
     }
 
-    public String getDonominacion() {
-        return donominacion;
+    public String getDenominacion() {
+        return denominacion;
     }
 
-    public void setDonominacion(String donominacion) {
-        this.donominacion = donominacion;
+    public void setDenominacion(String denominacion) {
+        this.denominacion = denominacion;
     }
 
     public String getDetalleArrastre() {
