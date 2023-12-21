@@ -2,6 +2,7 @@ package com.practice1.back.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,14 @@ public class IndicadorService {
     public List<IndicadorDto> findAllIndicadores() {
         List<Indicador> indicadors = new ArrayList<>();
         indicadorRepository.findAll().forEach(indicadors::add);
+        return indicadorMapper.toDto(indicadors);
+    }
+
+    public List<IndicadorDto> findIndicatorsByProjectId(int projectId) {
+        List<Indicador> indicadors = new ArrayList<>();
+        indicadorRepository.findAll().forEach(indicadors::add);
+        indicadors = indicadors.stream().filter(indicator -> indicator.getId().equals(projectId))
+                .collect(Collectors.toList());
         return indicadorMapper.toDto(indicadors);
     }
 

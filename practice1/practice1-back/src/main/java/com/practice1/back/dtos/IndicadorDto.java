@@ -1,7 +1,5 @@
 package com.practice1.back.dtos;
 
-import com.practice1.back.entities.Proyecto;
-
 public class IndicadorDto {
     private Integer id;
 
@@ -11,7 +9,7 @@ public class IndicadorDto {
 
     private String medioVerificacion;
 
-    private Proyecto proyecto;
+    private Long proyectoId;
 
     public IndicadorDto() {
     }
@@ -48,12 +46,12 @@ public class IndicadorDto {
         this.medioVerificacion = medioVerificacion;
     }
 
-    public Proyecto getProyecto() {
-        return proyecto;
+    public Long getProyectoId() {
+        return proyectoId;
     }
 
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
+    public void setProyectoId(Long proyectoId) {
+        this.proyectoId = proyectoId;
     }
 
 }

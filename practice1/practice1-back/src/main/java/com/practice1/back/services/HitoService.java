@@ -2,6 +2,7 @@ package com.practice1.back.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,13 @@ public class HitoService {
     public List<HitoDto> findAllHitos() {
         List<Hito> hitos = new ArrayList<>();
         hitoRepository.findAll().forEach(hitos::add);
+        return hitoMapper.toDto(hitos);
+    }
+
+    public List<HitoDto> findHitosByProjectId(int projectId) {
+        List<Hito> hitos = new ArrayList<>();
+        hitoRepository.findAll().forEach(hitos::add);
+        hitos = hitos.stream().filter(hito -> hito.getId().equals(projectId)).collect(Collectors.toList());
         return hitoMapper.toDto(hitos);
     }
 

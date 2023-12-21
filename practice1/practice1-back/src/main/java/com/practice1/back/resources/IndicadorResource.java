@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practice1.back.dtos.IndicadorDto;
@@ -22,7 +23,11 @@ public class IndicadorResource {
     private IndicadorService indicadorService;
 
     @GetMapping
-    public List<IndicadorDto> findAllIndicadores() {
+    public List<IndicadorDto> findAllIndicadores(
+            @RequestParam(name = "projectId", required = false) Integer projectId) {
+        if (projectId != null) {
+            return indicadorService.findIndicatorsByProjectId(projectId);
+        }
         return indicadorService.findAllIndicadores();
     }
 
