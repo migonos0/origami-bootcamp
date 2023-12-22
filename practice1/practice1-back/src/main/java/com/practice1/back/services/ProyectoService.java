@@ -31,4 +31,14 @@ public class ProyectoService {
         proyecto = proyectoRepository.save(proyecto);
         return proyectoMapper.toDto(proyecto);
     }
+
+    public ProyectoDto updateProyecto(int proyectoId, ProyectoDto proyectoDto) throws Exception {
+        if (!proyectoRepository.existsById(proyectoId)) {
+            throw new Exception("El proyecto especificado no exite.");
+        }
+        proyectoDto.setId(proyectoId);
+        Proyecto updatedProyecto = proyectoRepository.save(proyectoMapper.toEntity(proyectoDto));
+        return proyectoMapper.toDto(updatedProyecto);
+    }
+
 }
