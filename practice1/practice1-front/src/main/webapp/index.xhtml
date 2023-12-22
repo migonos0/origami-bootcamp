@@ -8,12 +8,79 @@
     <ui:define name="title">Esquema de Proyectos</ui:define>
 
     <ui:define name="content">
-        <p:card>
-            <p:dataTable var="area" value="#{areaMB.areas}">
-                <p:column headerText="Code">
-                    <h:outputText value="#{area.descripcion}" />
-                </p:column>
-            </p:dataTable>
-        </p:card>
+        <h:form id="crud-dt">
+            <p:card>
+                <f:facet name="title">
+                    Esquema de Proyectos
+                </f:facet>
+                <f:facet name="subtitle">
+                    ORIGAMI PLANIFICACIÓN 2024
+                </f:facet>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Nuevo" icon="pi pi-plus" styleClass="ui-button-success mr-1" 
+                                         action="#{createProjectController.loadPage()}">
+                            <!--<p:resetInput target=":dialogs:manage-product-content" />-->
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="projects-dt" reflow="true" var="project" value="#{proyectoMB.proyectos}" 
+                             paginatorPosition="bottom">
+                    <f:facet name="header">
+                        <div>
+                            <span class="ui-input-icon-left"> <i class="pi pi-search"></i>
+                                <p:inputText id="globalFilter" placeholder="Buscar" />
+                            </span>
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{project.tipo}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Recurrente">
+                        <p:selectBooleanCheckbox disabled="true" value="#{project.recurrente}"/>
+                    </p:column>
+                    <p:column headerText="Arrastre">
+                        <p:selectBooleanCheckbox disabled="true" value="#{project.arrastre}"/>
+                    </p:column>
+                    <p:column headerText="Denominación">
+                        <h:outputText value="#{project.denominacion}"/>
+                    </p:column>
+                    <p:column headerText="Detalle arrastre">
+                        <h:outputText value="#{project.detalleArrastre}"/>
+                    </p:column>
+                    <p:column headerText="Fecha de Inicio">
+                        <h:outputText value="#{project.fechaInicio.toLocaleString()}"/>
+                    </p:column>
+                    <p:column headerText="Fecha de Fin">
+                        <h:outputText value="#{project.fechaFin.toLocaleString()}"/>
+                    </p:column>
+                    <p:column headerText="Proceso">
+                        <h:outputText value="#{project.proceso.descripcion}"/>
+                    </p:column>
+                    <p:column headerText="Area">
+                        <h:outputText value="#{project.area.descripcion}"/>
+                    </p:column>
+                    <p:column headerText="Responsable">
+                        <h:outputText value="#{project.responsable.nombre} #{project.responsable.apellido}"/>
+                    </p:column>
+
+                    <p:column headerText="Acciones">
+                        <p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-success m-1" title="Modificar"/>
+                        <p:commandButton icon="pi pi-eye" styleClass="rounded-button ui-button-help m-1" 
+                                         label="Indicadores" action="#{manageIndicatorsController.loadPage(project)}" title="Indicadores"/>
+                        <p:commandButton icon="pi pi-check" styleClass="rounded-button ui-button-warning m-1" title="Hitos"/>
+                    </p:column>
+                </p:dataTable>
+            </p:card>
+        </h:form>
+
+        <h:form id="dialogs">
+            <p:dialog header="Detalles del Proyecto" showEffect="fade" modal="true" widgetVar="manageProjectDialog" resizable="true">
+
+            </p:dialog>
+        </h:form>
     </ui:define>
 </ui:composition>

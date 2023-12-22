@@ -4,9 +4,9 @@
  */
 package com.practice1.front.services;
 
-import com.practice1.front.interfaces.AppServices;
-import com.practice1.front.models.Area;
 import com.practice1.front.constants.ResourceURLs;
+import com.practice1.front.interfaces.AppServices;
+import com.practice1.front.models.Hito;
 import jakarta.ejb.Singleton;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -16,14 +16,13 @@ import java.util.List;
  *
  * @author miguel
  */
-@Singleton
 @ApplicationScoped
-public class AreaService {
-
+@Singleton
+public class HitoService {
     @Inject
     private AppServices appServices;
-
-    public List<Area> findAllAreas() {
-        return appServices.methodListGET(ResourceURLs.APP_URL + ResourceURLs.AREA, Area[].class);
+    
+    public List<Hito> findAllHitos() {
+        return appServices.methodListGET(ResourceURLs.APP_URL + ResourceURLs.HITO, Hito[].class);
     }
 }

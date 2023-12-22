@@ -15,4 +15,6 @@ public final class ResourceURLs {
     public static final String PROYECTO = "proyecto";
     public static final String PROCESO = "proceso";
     public static final String PERSONA = "persona";
+    public static final String INDICADOR = "indicador";
+    public static final String HITO = "hito";
 }

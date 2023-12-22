@@ -14,7 +14,9 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -25,9 +27,9 @@ import java.util.Date;
 public class CreateProjectController implements Serializable {
 
     @Inject
-    private ProyectoMB proyectoMB;
-    @Inject
     private ProyectoService proyectoService;
+    @Inject
+    private ProyectoMB proyectoMB;
     private Proyecto createableProject;
 
     @PostConstruct
@@ -44,8 +46,6 @@ public class CreateProjectController implements Serializable {
     }
 
     public void createProjectActionListener() {
-                System.out.println("0");
-
         if (createableProject.getArea() == null) {
             JSFMessages.WARN("Por favor, seleccione una area.");
             return;
@@ -63,23 +63,16 @@ public class CreateProjectController implements Serializable {
         createableProject.setEstado("A");
         createableProject.setCreadoPor(createableProject.getResponsable().getNombre() + " " + createableProject.getResponsable().getApellido());
         createableProject.setModificadoPor(createableProject.getResponsable().getNombre() + " " + createableProject.getResponsable().getApellido());
-        System.out.println("1");
         Proyecto createdProject = proyectoService.createProyecto(createableProject);
         if (createdProject == null) {
             JSFMessages.ERROR("Ha ocurrido un error en la creación del proyecto.");
             return;
         }
-                System.out.println("2");
-
-//        this.proyectoMB.getProyectos().add(createdProject);
-                                System.out.println("3");
-
+        List<Proyecto> proyectos = new ArrayList<>(this.proyectoMB.getProyectos());
+        proyectos.add(createdProject);
+        this.proyectoMB.setProyectos(proyectos);
         initializeCreateableProject();
-                        System.out.println("4");
-
         JSFMessages.INFO("Proyecto creado de forma exitosa.");
-                                System.out.println("5");
-
     }
 
     public Proyecto getCreateableProject() {
@@ -90,8 +83,4 @@ public class CreateProjectController implements Serializable {
         this.createableProject = createableProject;
     }
 
-    public String test() {
-        Proyecto createdProject = proyectoService.createProyecto(createableProject);
-        return "";
-    }
 }

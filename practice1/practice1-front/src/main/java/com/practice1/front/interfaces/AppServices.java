@@ -13,11 +13,16 @@ import java.util.List;
  */
 @Local
 public interface AppServices {
-     public Object methodGET(String url, Class clazz);
+
+    public Object methodGET(String url, Class clazz);
 
     public List methodListGET(String url, Class clazz);
 
     public Object methodPOST(Object data, String url, Class clazz);
+
+    public Object methodPUT(Object data, String url, Class clazz);
+
+    public Object methodDELETE(String url, Class clazz);
 
     public List methodListPOST(Object data, String url, Class clazz);
 }

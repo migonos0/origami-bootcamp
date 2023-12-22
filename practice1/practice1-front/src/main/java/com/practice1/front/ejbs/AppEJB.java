@@ -88,6 +88,48 @@ public class AppEJB implements AppServices {
         }
         return null;
     }
+    
+    @Override
+    public Object methodPUT(Object data, String url, Class clazz) {
+        System.out.println("com.practice1.front.ejbs.AppEJB.methodPUT()" + url);
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            URI uri = new URI(url);
+            HttpEntity<Object> entity = new HttpEntity<>(data, headers);
+            ResponseEntity<Object> response = restTemplate.exchange(uri, HttpMethod.PUT, entity, clazz);
+            if (response != null) {
+                return response.getBody();
+            }
+            return null;
+        } catch (URISyntaxException | RestClientException e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    @Override
+    public Object methodDELETE(String url, Class clazz) {
+        System.out.println("com.practice1.front.ejbs.AppEJB.methodDELETE()" + url);
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            URI uri = new URI(url);
+            HttpEntity<Object> entity = new HttpEntity<>( headers);
+            ResponseEntity<Object> response = restTemplate.exchange(uri, HttpMethod.DELETE, entity, clazz);
+            if (response != null) {
+                return response.getBody();
+            }
+            return null;
+        } catch (URISyntaxException | RestClientException e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
 
     @Override
     public List methodListPOST(Object data, String url, Class clazz) {
