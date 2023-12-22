@@ -8,110 +8,115 @@
     <ui:define name="title">Hitos</ui:define>
 
     <ui:define name="content">
-        <h:form>
+        <h:form id="dt">
             <p:card>
                 <f:facet name="title">
-                    Esquema de Proyectos
+                    Hitos
                 </f:facet>
                 <f:facet name="subtitle">
-                    Planificación Origami 2024
+                    #{manageHitosController.selectedProject.denominacion}
                 </f:facet>
-
-                <h3>Datos informativos</h3>
-                <div class="flex flex-column gap-3">
-                    <div class="flex flex-row gap-3 flex-wrap">
-                        <div class="flex flex-column gap-2 flex-grow-1" >
-                            <h:outputText value="Proceso:"/>
-                            <p:selectOneMenu value="#{createProjectController.createableProject.proceso}" 
-                                             converter="#{procesoConverter}">
-                                <f:selectItem itemLabel="Seleccione un proceso" />
-                                <f:selectItems value="#{procesoMB.procesos}" var="proceso"
-                                               itemLabel="#{proceso.descripcion}" itemValue="#{proceso}"></f:selectItems>
-                            </p:selectOneMenu>
-                        </div>
-
-                        <div class="flex flex-column gap-2 flex-grow-1" >
-                            <h:outputText value="Área:"/>
-                            <p:selectOneMenu value="#{createProjectController.createableProject.area}" converter="#{areaConverter}">
-                                <f:selectItem itemLabel="Seleccione un area" />
-                                <f:selectItems value="#{areaMB.areas}" var="area"
-                                               itemLabel="#{area.descripcion}" itemValue="#{area}"></f:selectItems>
-                            </p:selectOneMenu>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-row gap-3 flex-wrap">
-                        <div class="flex flex-column gap-2 flex-grow-1">
-                            <h:outputText value="Tipo:"/>
-                            <p:inputText required="true" requiredMessage="Por favor indique un tipo." value="#{createProjectController.createableProject.tipo}"/>
-                        </div>
-                        <div class="flex flex-column gap-2 flex-grow-1">
-                            <h:outputText value="Recurrente:"/>
-                            <p:selectBooleanButton required="true" requiredMessage="Por favor indique si es requerido." value="#{createProjectController.createableProject.recurrente}"/>
-
-                        </div>
-                        <div class="flex flex-column gap-2 flex-grow-1">
-                            <h:outputText value="Arrastre:"/>
-                            <p:selectBooleanButton required="true" requiredMessage="Por favor indique si es arrastre." value="#{createProjectController.createableProject.arrastre}"/>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-column gap-2">
-                        <h:outputText value="Denominación del proyecto:"/>
-                        <p:inputText required="true" requiredMessage="Por favor indique una denominación." styleClass="flex-grow-1" value="#{createProjectController.createableProject.denominacion}"/>                
-                    </div>
-
-                    <div class="flex flex-column gap-2">
-                        <h:outputText value="Detalle en caso de arrastre:"/>
-                        <p:inputText required="true" requiredMessage="Por favor indique un detalle en caso de arrastre." styleClass="flex-grow-1" value="#{createProjectController.createableProject.detalleArrastre}"/>                
-                    </div>
-                </div>
-
-                <h3>Datos generales</h3>
-                <div class="flex flex-column gap-3">
-                    <div class="flex flex-column gap-2">
-                        <h:outputText value="Responsable:"/>
-                        <p:selectOneMenu value="#{createProjectController.createableProject.responsable}" converter="#{personaConverter}">
-                            <f:selectItem itemLabel="Seleccione un responsable" />
-                            <f:selectItems value="#{personaMB.personas}" var="persona"
-                                           itemLabel="#{persona.nombre} #{persona.apellido}" itemValue="#{persona}"></f:selectItems>
-                        </p:selectOneMenu>              
-                    </div>
-
-                    <div class="flex flex-column gap-2">
-                        <h:outputText value="Objetivo general:"/>
-                        <p:inputText required="true" requiredMessage="Por favor indique un objetivo." 
-                                     styleClass="flex-grow-1" value="#{createProjectController.createableProject.objetivo}"/>                
-                    </div>
-
-                    <div class="flex flex-column gap-2">
-                        <h:outputText value="Descripción breve:"/>
-                        <p:inputTextarea styleClass="flex-grow-1" required="true" requiredMessage="Por favor indique una descripción."
-                                         value="#{createProjectController.createableProject.descripcionBreve}"/>                
-                    </div>
-
-                    <div class="flex flex-row gap-3 flex-flow flex-wrap">
-                        <div class="flex flex-column gap-2 flex-grow-1">
-                            <h:outputText value="Costo estimado:"/>
-                            <p:inputNumber required="true" requiredMessage="Por favor indique un costo estimado." 
-                                           styleClass="flex-grow-1" value="#{createProjectController.createableProject.costoProyecto}"/>
-                        </div>
-                        <div class="flex flex-column gap-2 flex-grow-1">
-                            <h:outputText value="Fecha inicio:"/>
-                            <p:calendar required="true" requiredMessage="Por favor indique una fecha de inicio." 
-                                        styleClass="flex-grow-1" value="#{createProjectController.createableProject.fechaInicio}"/>
-                        </div>
-                        <div class="flex flex-column gap-2 flex-grow-1">
-                            <h:outputText value="Fecha fin:"/>
-                            <p:calendar required="true" requiredMessage="Por favor indique una fecha de finalización." 
-                                        styleClass="flex-grow-1" value="#{createProjectController.createableProject.fechaFin}"/>
-                        </div>
-                    </div>
-                </div>
-                <f:facet name="footer">
-                    <p:commandButton update="@form" icon="pi pi-save" value="Guardar" actionListener="#{createProjectController.createProjectActionListener()}"/>
-                </f:facet>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Nuevo" icon="pi pi-plus" 
+                                         update=":dialogs" oncomplete="PF('dlg1').show()"
+                                         styleClass="ui-button-success" 
+                                         actionListener="#{manageHitosController.initializeHito()}">
+                            <p:resetInput target=":dialogs" />
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable value="#{manageHitosController.hitos}" var="hito">
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{hito.tipo}"/>
+                    </p:column>                    
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{hito.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{hito.descripcion}"/>
+                    </p:column>
+                    <p:column headerText="Justificación">
+                        <h:outputText value="#{hito.justificacion}"/>
+                    </p:column>
+                    <p:column headerText="Fecha estimada">
+                        <h:outputText value="#{hito.fechaEstimada.toLocaleString()}"/>
+                    </p:column>
+                    <p:column headerText="Fecha de pago">
+                        <h:outputText value="#{hito.fechaPago.toLocaleString()}"/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton styleClass="rounded-button ui-button-danger m-1" icon="pi pi-trash" value="Eliminar" 
+                                         actionListener="#{manageHitosController.setDeletableHitoId(hito.id)}" 
+                                         oncomplete="PF('deleteDialog').show()"/>
+                        <p:commandButton value="Modificar" styleClass="rounded-button ui-button-warning m-1" 
+                                         icon="pi pi-pencil" actionListener="#{manageHitosController.setHito(hito)}" 
+                                         oncomplete="PF('dlg1').show()" update=":dialogs"/>
+                    </p:column>
+                </p:dataTable>
             </p:card>
+        </h:form>
+
+        <h:form id="dialogs">
+            <p:dialog header="Detalles del Hito" widgetVar="dlg1" showEffect="fade">
+                <div class="flex flex-column gap-2">
+                    <div class="flex flex-column">
+                        <p:outputLabel for="tipo">Tipo</p:outputLabel>
+                        <p:inputText required="true" requiredMessage="Por favor indique un tipo." 
+                                     id="tipo" value="#{manageHitosController.hito.tipo}"/>
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p:outputLabel for="nombre">Nombre</p:outputLabel>
+                        <p:inputText required="true" 
+                                     requiredMessage="Por favor indique un nombre." 
+                                     id="nombre" 
+                                     value="#{manageHitosController.hito.nombre}"/>
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p:outputLabel for="descripcion">Descripción</p:outputLabel>
+                        <p:inputText required="true" requiredMessage="Por favor indique una descripción." 
+                                     id="descripcion" value="#{manageHitosController.hito.descripcion}"/>
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p:outputLabel for="justificacion">Justificación</p:outputLabel>
+                        <p:inputText required="true" requiredMessage="Por favor indique una justificación." 
+                                     id="justificacion" value="#{manageHitosController.hito.justificacion}"/>
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p:outputLabel for="fecha-estimada">Fecha estimada</p:outputLabel>
+                        <p:calendar required="true" requiredMessage="Por favor indique una fecha estimada." 
+                                    id="fecha-estimada" value="#{manageHitosController.hito.fechaEstimada}"/>
+                    </div>
+
+                    <div class="flex flex-column">
+                        <p:outputLabel for="fecha-pago">Fecha de pago</p:outputLabel>
+                        <p:calendar required="true" requiredMessage="Por favor indique una fecha de pago." 
+                                    id="fecha-pago" value="#{manageHitosController.hito.fechaPago}"/>
+                    </div>
+                </div>
+
+                <f:facet name="footer">
+                    <p:commandButton rendered="#{manageHitosController.hito.id eq null}" 
+                                     value="Guardar" icon="pi pi-save" oncomplete="PF('dlg1').hide()" 
+                                     update="@form :dt" actionListener="#{manageHitosController.createHitoActionListener()}"/>
+                    <p:commandButton rendered="#{manageHitosController.hito.id ne null}" value="Modificar" icon="pi pi-save" oncomplete="PF('dlg1').hide()" update="@form :dt" 
+                                     actionListener="#{manageHitosController.updateHitoActionListener()}"/>
+                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('dlg1').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+            </p:dialog>
+
+            <p:confirmDialog widgetVar="deleteDialog" showEffect="fade" width="300"
+                             message="¿Está seguro de borrar el indicador?" header="Confirmación" severity="warn">
+                <p:commandButton value="Si" icon="pi pi-check" update=":dt"
+                                 oncomplete="PF('deleteDialog').hide()" actionListener="#{manageHitosController.deleteHitoActionListener()}"/>
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                 onclick="PF('deleteDialog').hide()" />
+            </p:confirmDialog>
         </h:form>
     </ui:define>
 </ui:composition>

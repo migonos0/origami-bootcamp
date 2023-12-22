@@ -11,4 +11,5 @@ package com.practice1.front.constants;
 public final class AppRoutes {
     public static final String CREATE_PROJECT = "/crear-proyecto";
     public static final String MANAGE_INDICADORES = "/indicadores";
+    public static final String MANAGE_HITOS = "/hitos";
 }

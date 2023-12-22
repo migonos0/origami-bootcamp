@@ -25,4 +25,17 @@ public class HitoService {
     public List<Hito> findAllHitos() {
         return appServices.methodListGET(ResourceURLs.APP_URL + ResourceURLs.HITO, Hito[].class);
     }
+    
+    public Hito createHito(Hito hito) {
+        return (Hito) appServices.methodPOST(hito, ResourceURLs.APP_URL + ResourceURLs.HITO, Hito.class);
+    }
+    
+    public Hito updateHito(int hitoId, Hito hito) {
+        return (Hito) appServices.methodPUT(hito, ResourceURLs.APP_URL + ResourceURLs.HITO + "/" + hitoId, Hito.class);
+    }
+    
+    public Hito deleteHito(int hitoId) {
+        System.out.println("com.practice1.front.services.HitoService.deleteHito()" + hitoId);
+        return (Hito) appServices.methodDELETE(ResourceURLs.APP_URL + ResourceURLs.HITO + "/" + hitoId, Hito.class);
+    }
 }

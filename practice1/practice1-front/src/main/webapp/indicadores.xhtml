@@ -53,17 +53,17 @@
                 <div class="flex flex-column gap-2">
                     <div class="flex flex-column">
                         <p:outputLabel for="objetivo">Objetivo</p:outputLabel>
-                        <p:inputText id="objetivo" value="#{manageIndicatorsController.indicador.objetivo}"/>
+                        <p:inputText required="true" requiredMessage="Por favor indique un objetivo." id="objetivo" value="#{manageIndicatorsController.indicador.objetivo}"/>
                     </div>
 
                     <div class="flex flex-column">
                         <p:outputLabel for="forma-calculo">Forma de Cálculo</p:outputLabel>
-                        <p:inputText id="forma-calculo" value="#{manageIndicatorsController.indicador.formaCalculo}"/>
+                        <p:inputText required="true" requiredMessage="Por favor indique una forma de cálculo." id="forma-calculo" value="#{manageIndicatorsController.indicador.formaCalculo}"/>
                     </div>
 
                     <div class="flex flex-column">
                         <p:outputLabel for="medio-verificacion">Medio de Verificación</p:outputLabel>
-                        <p:inputText id="medio-verificacion" value="#{manageIndicatorsController.indicador.medioVerificacion}"/>
+                        <p:inputText required="true" requiredMessage="Por favor indique un medio de verificación." id="medio-verificacion" value="#{manageIndicatorsController.indicador.medioVerificacion}"/>
                     </div>
                 </div>
 
