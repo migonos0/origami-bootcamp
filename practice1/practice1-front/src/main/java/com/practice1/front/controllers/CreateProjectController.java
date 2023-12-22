@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -32,31 +33,32 @@ public class CreateProjectController implements Serializable {
     private ProyectoMB proyectoMB;
     private Proyecto createableProject;
 
-    @PostConstruct
-    public void onLoad() {
-        initializeCreateableProject();
-    }
-
     private void initializeCreateableProject() {
         this.createableProject = new Proyecto();
     }
 
     public String loadPage() {
+        initializeCreateableProject();
         return AppRoutes.CREATE_PROJECT + "?faces-redirect=true";
     }
 
-    public void createProjectActionListener() {
+    public String loadPage(Proyecto proyecto) {
+        this.createableProject = proyecto;
+        return AppRoutes.CREATE_PROJECT + "?faces-redirect=true";
+    }
+
+    public String createProjectActionListener() {
         if (createableProject.getArea() == null) {
             JSFMessages.WARN("Por favor, seleccione una area.");
-            return;
+            return null;
         }
         if (createableProject.getProceso() == null) {
             JSFMessages.WARN("Por favor, seleccione un proceso.");
-            return;
+            return null;
         }
         if (createableProject.getResponsable() == null) {
             JSFMessages.WARN("Por favor, seleccione un responsable.");
-            return;
+            return null;
         }
         createableProject.setFechaCreacion(new Date());
         createableProject.setFechaModificacion(new Date());
@@ -66,13 +68,40 @@ public class CreateProjectController implements Serializable {
         Proyecto createdProject = proyectoService.createProyecto(createableProject);
         if (createdProject == null) {
             JSFMessages.ERROR("Ha ocurrido un error en la creación del proyecto.");
-            return;
+            return null;
         }
         List<Proyecto> proyectos = new ArrayList<>(this.proyectoMB.getProyectos());
         proyectos.add(createdProject);
         this.proyectoMB.setProyectos(proyectos);
-        initializeCreateableProject();
         JSFMessages.INFO("Proyecto creado de forma exitosa.");
+        return "index?faces-redirect=true";
+    }
+
+    public String updateProjectActionListener() {
+        if (createableProject.getArea() == null) {
+            JSFMessages.WARN("Por favor, seleccione una area.");
+            return null;
+        }
+        if (createableProject.getProceso() == null) {
+            JSFMessages.WARN("Por favor, seleccione un proceso.");
+            return null;
+        }
+        if (createableProject.getResponsable() == null) {
+            JSFMessages.WARN("Por favor, seleccione un responsable.");
+            return null;
+        }
+        createableProject.setFechaModificacion(new Date());
+        createableProject.setModificadoPor(createableProject.getResponsable().getNombre() + " " + createableProject.getResponsable().getApellido());
+        Proyecto updatedProject = proyectoService.updateProyecto(createableProject.getId(), createableProject);
+        if (updatedProject == null) {
+            JSFMessages.ERROR("Ha ocurrido un error en la creación del proyecto.");
+            return null;
+        }
+        List<Proyecto> freshProyectos = this.proyectoMB.getProyectos().stream().filter(p -> p.getId().intValue() != updatedProject.getId().intValue()).collect(Collectors.toList());
+        freshProyectos.add(updatedProject);
+        this.proyectoMB.setProyectos(freshProyectos);
+        JSFMessages.INFO("Proyecto actualizado de forma exitosa.");
+        return "index?faces-redirect=true";
     }
 
     public Proyecto getCreateableProject() {

@@ -30,4 +30,8 @@ public class ProyectoService {
     public Proyecto createProyecto(Proyecto proyecto) {
         return (Proyecto) appServices.methodPOST(proyecto, ResourceURLs.APP_URL + ResourceURLs.PROYECTO, Proyecto.class);
     }
+
+    public Proyecto updateProyecto(int proyectoId, Proyecto proyecto) {
+        return (Proyecto) appServices.methodPUT(proyecto, ResourceURLs.APP_URL + ResourceURLs.PROYECTO + "/" + proyectoId, Proyecto.class);
+    }
 }

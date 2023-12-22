@@ -28,14 +28,6 @@
 
                 <p:dataTable id="projects-dt" reflow="true" var="project" value="#{proyectoMB.proyectos}" 
                              paginatorPosition="bottom">
-                    <f:facet name="header">
-                        <div>
-                            <span class="ui-input-icon-left"> <i class="pi pi-search"></i>
-                                <p:inputText id="globalFilter" placeholder="Buscar" />
-                            </span>
-                        </div>
-                    </f:facet>
-
                     <p:column headerText="Tipo">
                         <h:outputText value="#{project.tipo}"></h:outputText>
                     </p:column>
@@ -68,7 +60,8 @@
                     </p:column>
 
                     <p:column headerText="Acciones">
-                        <p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-success m-1" title="Modificar"/>
+                        <p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-success m-1" title="Modificar" 
+                                         action="#{createProjectController.loadPage(project)}"/>
                         <p:commandButton icon="pi pi-eye" styleClass="rounded-button ui-button-help m-1" 
                                          label="Indicadores" action="#{manageIndicatorsController.loadPage(project)}" title="Indicadores"/>
                         <p:commandButton icon="pi pi-check" styleClass="rounded-button ui-button-warning m-1" title="Hitos" action="#{manageHitosController.loadPage(project)}"/>

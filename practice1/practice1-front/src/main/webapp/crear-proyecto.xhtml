@@ -109,7 +109,8 @@
                     </div>
                 </div>
                 <f:facet name="footer">
-                    <p:commandButton update="@form" icon="pi pi-save" value="Guardar" actionListener="#{createProjectController.createProjectActionListener()}"/>
+                    <p:commandButton rendered="#{createProjectController.createableProject.id eq null}" update="@form" icon="pi pi-save" value="Guardar" action="#{createProjectController.createProjectActionListener()}"/>
+                    <p:commandButton rendered="#{createProjectController.createableProject.id ne null}" update="@form" icon="pi pi-save" value="Guardar" action="#{createProjectController.updateProjectActionListener()}"/>
                 </f:facet>
             </p:card>
         </h:form>
