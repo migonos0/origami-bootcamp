@@ -45,7 +45,7 @@ public class HitoResource {
         }
     }
 
-    @DeleteMapping(path = { "/hitoId" })
+    @DeleteMapping(path = { "/{hitoId}" })
     public HitoDto deleteHito(@PathVariable int hitoId) {
         try {
             return hitoService.deleteHito(hitoId);

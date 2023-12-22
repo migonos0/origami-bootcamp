@@ -32,7 +32,7 @@ public class IndicadorResource {
     }
 
     @PostMapping
-    public IndicadorDto createIndicador(IndicadorDto dto) {
+    public IndicadorDto createIndicador(@RequestBody IndicadorDto dto) {
         return indicadorService.createIndicador(dto);
     }
 
